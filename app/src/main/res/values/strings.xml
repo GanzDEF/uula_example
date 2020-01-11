@@ -2,4 +2,6 @@
     <string name="app_name">My Application</string>
     <string name="pdf">pdf</string>
     <string name="nil">nil</string>
+    <string name="previous">previous</string>
+    <string name="next">next</string>
 </resources>

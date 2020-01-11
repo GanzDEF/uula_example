@@ -3,4 +3,9 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorVideoPreviewBottomFiller">#050E14</color>
+    <color name="colorSeekbarProgress">#9042F7</color>
+    <color name="colorTextGrey">#53677D</color>
+    <color name="lessonsListBackgroundColor">#1E2833</color>
+    <color name="colorLessonsListProgressHolderBackground">#191E24</color>
 </resources>

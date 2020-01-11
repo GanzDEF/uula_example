@@ -1,18 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.LessonsListActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivListPikcha"    
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/English"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/SubTitleWhite"
+        android:id="@+id/tvLessonsListDescription"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginStart="@dimen/margin_normal_plus"
+        android:layout_marginEnd="@dimen/margin_normal_plus"
+        android:layout_marginBottom="@dimen/margin_normal"
+        android:fontFamily="sans-serif-black"
+        app:layout_constraintBottom_toBottomOf="@id/ivListPikcha"
+        app:layout_constraintEnd_toEndOf="@id/ivListPikcha"
+        app:layout_constraintStart_toStartOf="@id/ivListPikcha"
+        tools:text="English Language - Grade 12 - Semester 1" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLessonsListTitle"
+        style="@style/TitleWhite"
+        tools:text="Migration"
+        app:layout_constraintBottom_toTopOf="@id/tvLessonsListDescription"
+        app:layout_constraintStart_toStartOf="@id/tvLessonsListDescription"
+        app:layout_constraintEnd_toEndOf="@id/tvLessonsListDescription"
+        android:layout_width="0dp"
+        android:layout_marginBottom="@dimen/margin_normal"
+        android:layout_height="wrap_content" />
+    <ScrollView
+        android:id="@+id/scrollView"
+        app:layout_constraintTop_toBottomOf="@id/ivListPikcha"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/lessonsListBackgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clLessonsListHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/llProgressHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                android:background="@color/colorLessonsListProgressHolderBackground"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextWhite"
+                    android:id="@+id/tvLessonProgressTitle"
+                    tools:text="Lessons progress"
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
+                    android:paddingTop="@dimen/margin_normal"
+                    android:paddingBottom="@dimen/margin_normal"
+                    android:paddingEnd="@dimen/margin_minimal"
+                    android:paddingStart="@dimen/margin_normal_plus"
+                    android:layout_height="match_parent"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvLessonsProgressCount"
+                    android:layout_weight="1"
+                    android:paddingStart="@dimen/margin_minimal"
+                    android:paddingEnd="@dimen/margin_normal_plus"
+                    android:textColor="@color/colorTextGrey"
+                    tools:text="4/4"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLessonsList"
+                app:layout_constraintTop_toBottomOf="@id/llProgressHolder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/btnPrevious"
+                tools:listitem="@layout/view_lesson_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/TextWhite"
+                android:id="@+id/btnPrevious"
+                android:text="@string/previous"
+                android:background="@drawable/circle_violet"
+                android:textAllCaps="true"
+                android:paddingStart="@dimen/margin_normal_plus"
+                android:paddingEnd="@dimen/margin_normal_plus"
+                app:layout_constraintTop_toBottomOf="@id/rvLessonsList"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnNext"
+                android:layout_margin="24dp"
+                android:layout_width="0dp"
+                android:layout_height="30dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/TextWhite"
+                android:id="@+id/btnNext"
+                android:text="@string/next"
+                android:paddingStart="@dimen/margin_normal_plus"
+                android:paddingEnd="@dimen/margin_normal_plus"
+                app:layout_constraintTop_toBottomOf="@id/rvLessonsList"
+                app:layout_constraintStart_toEndOf="@id/btnPrevious"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/circle_violet"
+                android:textAllCaps="true"
+                android:layout_margin="24dp"
+                android:layout_width="0dp"
+                android:layout_height="30dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    
 
 </androidx.constraintlayout.widget.ConstraintLayout>
