@@ -7,7 +7,7 @@ import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-object LessonsRoomRepository  {
+object LessonsRepository  {
 
     @Inject private lateinit var webApi: UulaApi
 
@@ -48,7 +48,7 @@ object LessonsRoomRepository  {
 
     fun insertLessons(lessonsRes: List<LessonResponse>, complete: () -> Unit) {
         GlobalScope.launch {
-            lessonsDatabase.LessonsDAO().insertLessons(lessonsRes)
+            lessonsDatabase.lessonsDAO().insertLessons(lessonsRes)
             complete.invoke()
         }
     }
@@ -56,7 +56,7 @@ object LessonsRoomRepository  {
     fun clearDb(complete: () -> Unit) {
         GlobalScope.launch {
             val job = GlobalScope.launch {
-                lessonsDatabase.LessonsDAO().deleteAllLessons()
+                lessonsDatabase.lessonsDAO().deleteAllLessons()
             }
             job.join()
             complete.invoke()
@@ -65,9 +65,18 @@ object LessonsRoomRepository  {
 
     fun isUpdatable(result: (isNeed: Boolean) -> Unit) {
         GlobalScope.launch {
-            with(lessonsDatabase.LessonsDAO()) {
-                val isNeeded = getlessonsSize()
+            with(lessonsDatabase.lessonsDAO()) {
+                val isNeeded = getlessonsSize() == 0
+                result.invoke(isNeeded)
+
             }
+        }
+    }
+
+    fun getLessons(result: (lessonsList: List<LessonResponse>) -> Unit) {
+        GlobalScope.launch {
+            val lessons = lessonsDatabase.lessonsDAO().getLessons()
+            result.invoke(lessons)
         }
     }
 

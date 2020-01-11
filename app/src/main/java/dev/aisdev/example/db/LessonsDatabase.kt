@@ -8,5 +8,5 @@ import dev.aisdev.example.entities.LessonResponse
 @Database(entities = [LessonResponse::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class LessonsDatabase : RoomDatabase() {
-    abstract fun LessonsDAO(): LessonsDAO
+    abstract fun lessonsDAO(): LessonsDAO
 }

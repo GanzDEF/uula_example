@@ -39,10 +39,5 @@ class WebModule(var context: Context) {
         return retrofit.create(UulaApi::class.java)
     }
 
-//    @Provides
-//    fun providesLessonsNetworkRepository(): LessonsNetworkRepository {
-//        return LessonsNetworkRepository()
-//    }
-
 
 }
