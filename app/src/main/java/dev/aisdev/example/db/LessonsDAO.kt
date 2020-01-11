@@ -17,4 +17,7 @@ interface LessonsDAO {
 
     @Query("DELETE FROM lessons")
     fun deleteAllLessons()
+
+    @Query("SELECT count(lessonData) FROM lessons")
+    fun getlessonsSize(): Int
 }

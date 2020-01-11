@@ -3,9 +3,7 @@ package dev.aisdev.example.di.modules
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import dev.aisdev.example.db.LessonsRoomRepository
 import dev.aisdev.example.model.data.server.UulaApi
-import dev.aisdev.example.model.reposittories.LessonsNetworkRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -37,17 +35,14 @@ class WebModule(var context: Context) {
 
     @Provides
     @Singleton
-    fun providesMovieApi(retrofit: Retrofit): UulaApi {
+    fun providesLessonsApi(retrofit: Retrofit): UulaApi {
         return retrofit.create(UulaApi::class.java)
     }
 
-    @Provides
-    fun providesLessonsReNetworkRepository(): LessonsNetworkRepository {
-        return LessonsNetworkRepository()
-    }
+//    @Provides
+//    fun providesLessonsNetworkRepository(): LessonsNetworkRepository {
+//        return LessonsNetworkRepository()
+//    }
 
-    @Provides
-    fun providesRoomsRepository(): LessonsRoomRepository {
-        return LessonsRoomRepository()
-    }
+
 }
