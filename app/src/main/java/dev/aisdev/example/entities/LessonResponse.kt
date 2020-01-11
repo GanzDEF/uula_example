@@ -1,8 +1,10 @@
 package dev.aisdev.example.entities
 
+import androidx.room.Entity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "lessons")
 data class LessonResponse(
     @SerializedName("kind")
     @Expose
@@ -12,14 +14,6 @@ data class LessonResponse(
     val lessonData: LessonData
     )
 
-enum class LessonKind {
-    @SerializedName("Video")
-    VIDEO,
-    @SerializedName("Survey")
-    SURVEY,
-    @SerializedName("OfflineMaterial")
-    OFFLINE_MATERIAL
-}
 
 
 

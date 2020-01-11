@@ -1,9 +1,10 @@
 package dev.aisdev.example.entities
 
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import dev.aisdev.example.R
 
 data class LessonData(
+    @PrimaryKey
     @SerializedName("id")
     val id: String,
     @SerializedName("visited")
@@ -26,24 +27,3 @@ data class LessonData(
     val question_count: Int?
 )
 
-enum class LessonFileExtension(val title: Int) {
-    @SerializedName("pdf")
-    PDF(R.string.pdf),
-    @SerializedName("nil")
-    NIL(R.string.nil)
-}
-
-data class LessonImageUrlHolder(
-    @SerializedName("large")
-    val large: String,
-    @SerializedName("small")
-    val small: String,
-    @SerializedName("medium")
-    val medium: String,
-    @SerializedName("xlarge")
-    val xlarge: String,
-    @SerializedName("xsmall")
-    val xsmall: String,
-    @SerializedName("xxlarge")
-    val xxlarge: String
-)
