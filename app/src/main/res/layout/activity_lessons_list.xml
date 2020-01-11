@@ -64,17 +64,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
+
                 <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/TextWhite"
                     android:id="@+id/tvLessonProgressTitle"
-                    tools:text="Lessons progress"
-                    android:layout_weight="4"
+                    style="@style/TextWhite"
                     android:layout_width="0dp"
-                    android:paddingTop="@dimen/margin_normal"
-                    android:paddingBottom="@dimen/margin_normal"
-                    android:paddingEnd="@dimen/margin_minimal"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:paddingStart="@dimen/margin_normal_plus"
-                    android:layout_height="match_parent"/>
+                    android:paddingTop="@dimen/margin_normal"
+                    android:paddingEnd="@dimen/margin_minimal"
+                    android:paddingBottom="@dimen/margin_normal"
+                    tools:text="Lessons progress" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvLessonsProgressCount"
                     android:layout_weight="1"
@@ -103,6 +105,7 @@
                 android:text="@string/previous"
                 android:background="@drawable/circle_violet"
                 android:textAllCaps="true"
+                android:textStyle="bold"
                 android:paddingStart="@dimen/margin_normal_plus"
                 android:paddingEnd="@dimen/margin_normal_plus"
                 app:layout_constraintTop_toBottomOf="@id/rvLessonsList"
@@ -118,6 +121,7 @@
                 android:text="@string/next"
                 android:paddingStart="@dimen/margin_normal_plus"
                 android:paddingEnd="@dimen/margin_normal_plus"
+                android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/rvLessonsList"
                 app:layout_constraintStart_toEndOf="@id/btnPrevious"
                 app:layout_constraintBottom_toBottomOf="parent"

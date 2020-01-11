@@ -6,6 +6,7 @@
     <color name="colorVideoPreviewBottomFiller">#050E14</color>
     <color name="colorSeekbarProgress">#9042F7</color>
     <color name="colorTextGrey">#53677D</color>
+    <color name="colorTextSomeKindOfGrey">#3A4959</color>
     <color name="lessonsListBackgroundColor">#1E2833</color>
     <color name="colorLessonsListProgressHolderBackground">#191E24</color>
 </resources>
