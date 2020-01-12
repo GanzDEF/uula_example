@@ -59,6 +59,7 @@ ext {
     rxJavaVersion = '2.2.2'
     daggerVersion = '2.25.4'
     archComponent = '2.0.0'
+    glideVersion = '4.9.0'
 }
 
 
@@ -71,7 +72,6 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-
     // dagger2
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
@@ -83,9 +83,9 @@ dependencies {
     implementation 'com.squareup.moshi:moshi:1.9.2'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.2'
 
-    //LiveData
-//    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-rc03'
-//    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0-rc03'
+    implementation "com.github.bumptech.glide:glide:$glideVersion}"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion}"
+
 
     implementation "android.arch.lifecycle:extensions:$archComponent"
     implementation "android.arch.persistence.room:runtime:$archComponent"

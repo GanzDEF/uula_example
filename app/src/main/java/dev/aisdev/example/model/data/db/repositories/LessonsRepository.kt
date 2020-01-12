@@ -1,7 +1,6 @@
-package dev.aisdev.example.db.repositories
+package dev.aisdev.example.model.data.db.repositories
 
-import dev.aisdev.example.db.Converters
-import dev.aisdev.example.db.LessonsDatabase
+import dev.aisdev.example.model.data.db.LessonsDatabase
 import dev.aisdev.example.entities.LessonData
 import dev.aisdev.example.model.data.server.UulaApi
 import kotlinx.coroutines.*
@@ -70,7 +69,6 @@ class LessonsRepository  {
             with(lessonsDatabase.lessonsDAO()) {
                 val isNeeded = getlessonsSize() == 0
                 result.invoke(isNeeded)
-
             }
         }
     }

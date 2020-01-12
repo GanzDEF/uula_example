@@ -1,4 +1,4 @@
-package dev.aisdev.example.db
+package dev.aisdev.example.model.data.db
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

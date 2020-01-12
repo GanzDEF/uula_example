@@ -1,4 +1,4 @@
-package dev.aisdev.example.binding
+package dev.aisdev.example.ui.binding
 
 import android.view.View
 import androidx.databinding.BindingAdapter

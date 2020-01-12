@@ -1,4 +1,4 @@
-package dev.aisdev.example.db
+package dev.aisdev.example.model.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

@@ -7,16 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.aisdev.example.entities.Resource
 import dev.aisdev.example.entities.Status
 
-fun View.visible() {
-    visibility = View.VISIBLE
-}
+fun View.visible(bool: Boolean)  =
+    if (bool) View.VISIBLE else View.GONE
 
 fun View.invisible() {
     visibility = View.INVISIBLE
-}
-
-fun View.gone() {
-    visibility = View.GONE
 }
 
 fun Context.toast(message: String): Toast = Toast

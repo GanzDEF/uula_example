@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
-import dev.aisdev.example.db.LessonsDatabase
+import dev.aisdev.example.model.data.db.LessonsDatabase
 import javax.inject.Singleton
 
 private const val DB_NAME = "lessonsDatabase"
