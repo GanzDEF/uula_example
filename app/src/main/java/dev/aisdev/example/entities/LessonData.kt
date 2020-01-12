@@ -1,8 +1,10 @@
 package dev.aisdev.example.entities
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "lessons")
 data class LessonData(
     @PrimaryKey
     @SerializedName("id")
@@ -24,6 +26,7 @@ data class LessonData(
     @SerializedName("comments_count")
     val comments_count: Int?,
     @SerializedName("question_count")
-    val question_count: Int?
+    val question_count: Int?,
+    val kind: LessonKind
 )
 

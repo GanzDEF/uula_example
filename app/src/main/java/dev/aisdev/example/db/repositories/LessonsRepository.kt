@@ -1,13 +1,14 @@
 package dev.aisdev.example.db.repositories
 
+import dev.aisdev.example.db.Converters
 import dev.aisdev.example.db.LessonsDatabase
-import dev.aisdev.example.entities.LessonResponse
+import dev.aisdev.example.entities.LessonData
 import dev.aisdev.example.model.data.server.UulaApi
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-object LessonsRepository  {
+class LessonsRepository  {
 
     @Inject lateinit var webApi: UulaApi
 
@@ -19,13 +20,13 @@ object LessonsRepository  {
     @Inject lateinit var lessonsDatabase: LessonsDatabase
 
     fun getAllLessons(
-        result: (lessonsList: List<LessonResponse>) -> Unit
+        result: (lessonsList: List<LessonData>) -> Unit
     ) {
         scope.launch {
-            val lessons = mutableListOf<LessonResponse>()
+            val lessons = mutableListOf<LessonData>()
             val response = webApi.getLessonsList().await()
             if (response.isSuccessful) {
-                response.body()?.let { lessons.addAll(it) }
+                response.body()?.let { lessons.addAll(it.asSequence().map { resp -> resp.lessonResponseToLessonsData() }) }
             }
             result.invoke(lessons)
         }
@@ -33,21 +34,21 @@ object LessonsRepository  {
 
     fun getLessonsByPage(
         page: Int,
-        result: (lessonsList: List<LessonResponse>) -> Unit
+        result: (lessonsList: List<LessonData>) -> Unit
     ) {
-        val lessons = mutableListOf<LessonResponse>()
+        val lessons = mutableListOf<LessonData>()
         val jobs = mutableListOf<Job>()
         val job = scope.launch {
             val response = webApi.getLessonsListByPageId(page).await()
             if (response.isSuccessful) {
-                response.body()?.let { lessons.addAll(it) }
+                response.body()?.let { lessons.addAll(it.asSequence().map { resp -> resp.lessonResponseToLessonsData() }) }
             }
         }
         jobs += job
         result.invoke(lessons)
     }
 
-    fun insertLessons(lessonsRes: List<LessonResponse>, complete: () -> Unit) {
+    fun insertLessons(lessonsRes: List<LessonData>, complete: () -> Unit) {
         GlobalScope.launch {
             lessonsDatabase.lessonsDAO().insertLessons(lessonsRes)
             complete.invoke()
@@ -74,7 +75,7 @@ object LessonsRepository  {
         }
     }
 
-    fun getLessons(result: (lessonsList: List<LessonResponse>) -> Unit) {
+    fun getLessons(result: (lessonsList: List<LessonData>) -> Unit) {
         GlobalScope.launch {
             val lessons = lessonsDatabase.lessonsDAO().getLessons()
             result.invoke(lessons)

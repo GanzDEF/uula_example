@@ -5,21 +5,21 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import dev.aisdev.example.entities.LessonResponse
+import dev.aisdev.example.entities.LessonData
 
 @Dao
 interface LessonsDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertLessons(vararg: List<LessonResponse>)
+    fun insertLessons(vararg: List<LessonData>)
 
     @Query("SELECT * FROM lessons")
-    fun getLessons(): List<LessonResponse>
+    fun getLessons(): List<LessonData>
 
     @Query("DELETE FROM lessons")
     fun deleteAllLessons()
 
-    @Query("SELECT count(lessonData) FROM lessons")
+    @Query("SELECT count(id) FROM lessons")
     fun getlessonsSize(): Int
 }
 
@@ -27,14 +27,14 @@ interface LessonsDAO {
 interface LessonsLiveDataDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertLessons(vararg: List<LessonResponse>)
+    fun insertLessons(vararg: List<LessonData>)
 
     @Query("SELECT * FROM lessons")
-    fun getLessons(): LiveData<List<LessonResponse>>
+    fun getLessons(): LiveData<List<LessonData>>
 
     @Query("DELETE FROM lessons")
     fun deleteAllLessons()
 
-    @Query("SELECT count(lessonData) FROM lessons")
+    @Query("SELECT count(id) FROM lessons")
     fun getlessonsSize(): Int
 }
