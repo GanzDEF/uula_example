@@ -9,14 +9,14 @@ import kotlin.coroutines.CoroutineContext
 
 object LessonsRepository  {
 
-    @Inject private lateinit var webApi: UulaApi
+    @Inject lateinit var webApi: UulaApi
 
     private val parentJob = Job()
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Default
     private val scope = CoroutineScope(coroutineContext)
 
-    @Inject private lateinit var lessonsDatabase: LessonsDatabase
+    @Inject lateinit var lessonsDatabase: LessonsDatabase
 
     fun getAllLessons(
         result: (lessonsList: List<LessonResponse>) -> Unit
@@ -30,6 +30,7 @@ object LessonsRepository  {
             result.invoke(lessons)
         }
     }
+
     fun getLessonsByPage(
         page: Int,
         result: (lessonsList: List<LessonResponse>) -> Unit

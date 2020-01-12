@@ -34,6 +34,9 @@ import java.nio.charset.Charset
  * information. It should only be used in a controlled manner or in a
  * non-production environment.
  */
+
+private val UTF8 = Charset.forName("UTF-8")
+
 class CurlLoggingInterceptor @JvmOverloads constructor(private val logger: Logger = Logger.DEFAULT) : Interceptor {
 
     private var curlOptions: String? = null
@@ -80,11 +83,6 @@ class CurlLoggingInterceptor @JvmOverloads constructor(private val logger: Logge
         logger.log("╰--- (ic_copy_non_active and paste the above line to a terminal)")
 
         return chain.proceed(request)
-    }
-
-    companion object {
-
-        private val UTF8 = Charset.forName("UTF-8")
     }
 
 }
