@@ -27,6 +27,7 @@ data class LessonData(
     val comments_count: Int?,
     @SerializedName("question_count")
     val question_count: Int?,
+    var page_id: Int?,
     val kind: LessonKind
 )
 

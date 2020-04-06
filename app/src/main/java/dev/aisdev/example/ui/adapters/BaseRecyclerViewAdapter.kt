@@ -15,6 +15,7 @@ import java.util.ArrayList
 @Suppress("unused", "MemberVisibilityCanBePrivate", "RedundantOverride", "RedundantVisibilityModifier")
 abstract class BaseRecyclerViewAdapter :
     RecyclerView.Adapter<BaseViewHolder>(), LifecycleObserver {
+
     /** data holding list attribute. */
     private val sections = ArrayList<MutableList<Any>>()
 
