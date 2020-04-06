@@ -53,13 +53,12 @@ android {
 }
 
 ext {
-    moxyVersion = '2.0.2'
+    moxyVersion = '2.1.1'
     glideVersion = '4.11.0'
     toothpickVersion = '3.1.0'
     rxJavaVersion = '2.2.2'
     daggerVersion = '2.25.4'
     archComponent = '2.0.0'
-    glideVersion = '4.10.0'
 }
 
 
