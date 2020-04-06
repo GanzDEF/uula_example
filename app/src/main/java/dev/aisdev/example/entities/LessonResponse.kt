@@ -8,7 +8,6 @@ data class LessonResponse(
     @Expose
     val kind: LessonKind,
     @SerializedName("item")
-
     @Expose
     val lessonData: LessonData
 ) {

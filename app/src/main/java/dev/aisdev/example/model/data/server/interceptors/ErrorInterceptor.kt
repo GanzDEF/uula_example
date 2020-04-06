@@ -14,12 +14,11 @@ class ErrorInterceptor : Interceptor {
         if (response.code in 400..500) {
             val errorResponse: ApiErrorResponse = if (response.body != null) {
                 val body = response.body!!.source().readUtf8()
-                Gson().fromJson<ApiErrorResponse>(body,
-                    ApiErrorResponse::class.java)
+                Gson().fromJson(body, ApiErrorResponse::class.java)
             } else {
                 ApiErrorResponse()
             }
-            throw ServerError(response.code, errorResponse)
+            throw ServerError(errorResponse.error, errorResponse.message)
         }
         return response
     }

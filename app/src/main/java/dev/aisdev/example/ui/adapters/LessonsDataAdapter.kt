@@ -1,27 +1,26 @@
 package dev.aisdev.example.ui.adapters
 
 import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
+import dev.aisdev.example.R
+import dev.aisdev.example.entities.LessonData
+import dev.aisdev.example.ui.viewholders.BaseViewHolder
+import dev.aisdev.example.ui.viewholders.LessonViewHolder
 
-class LessonsDataAdapter : BaseAdapter() {
 
-    private val section_lessonData = 0
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class LessonsDataAdapter(
+    private val delegate: LessonViewHolder.Delegate
+) : BaseRecyclerViewAdapter() {
+
+    override fun layout(sectionRow: SectionRow) =
+        R.layout.view_lesson_detail
+
+    override fun viewHolder(layout: Int, view: View): BaseViewHolder =
+        LessonViewHolder(view, delegate)
+
+    fun updateLessonsList(lessons: List<LessonData>) {
+        sections()[0].addAll(lessons)
+        notifyDataSetChanged()
     }
 
-    override fun getItem(position: Int): Any {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getItemId(position: Int): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
+    // I don't need DiffUtils there for now
 }

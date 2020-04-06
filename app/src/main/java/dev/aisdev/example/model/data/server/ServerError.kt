@@ -1,6 +1,6 @@
 package dev.aisdev.example.model.data.server
 
 class ServerError(
-    val errorCode: Int,
-    val errorResponse: ApiErrorResponse
+    val error: String?,
+    override val message: String?
 ) : RuntimeException()

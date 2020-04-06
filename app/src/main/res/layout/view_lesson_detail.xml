@@ -99,13 +99,14 @@
                 android:weightSum="3"
                 app:cardCornerRadius="4dp">
 
+<!--                app:srcCompat="@{lessonData.kind.image}"-->
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivMaterialLogo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="20dp"
-                    app:srcCompat="@{lessonData.kind.image}"
                     tools:srcCompat="@drawable/pdf_icon_imported" />
 
                 <androidx.appcompat.widget.AppCompatTextView

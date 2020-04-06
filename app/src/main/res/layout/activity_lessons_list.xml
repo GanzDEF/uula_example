@@ -4,8 +4,8 @@
     <data>
         
         <variable
-            name="lessonsListHeader"
-            type="dev.aisdev.example.entities.LessonsListHeader" />
+            name="viewModel"
+            type="dev.aisdev.example.presentation.LessonsListViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -100,6 +100,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent" />
                 </LinearLayout>
+
+<!--                app:adapterLessonsData="{}"-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvLessonsList"

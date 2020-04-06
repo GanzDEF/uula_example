@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class ApiErrorResponse {
     @SerializedName("status")
-    var status = ResponseStatus.FAIL
+    var error: String = ""
     @SerializedName("message")
     var message: String = ""
 }

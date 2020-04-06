@@ -17,10 +17,10 @@ data class LessonData(
     val about: String,
     @SerializedName("format")
     val format: String?,
+    @SerializedName("duration")
+    val duration: String?,
     @SerializedName("file_extension")
     val file_extension: LessonFileExtension?,
-    @SerializedName("duration")
-    val duration: Long?,
     @SerializedName("images")
     val images: LessonImageUrlHolder?,
     @SerializedName("comments_count")

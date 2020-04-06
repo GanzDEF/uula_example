@@ -59,7 +59,7 @@ ext {
     rxJavaVersion = '2.2.2'
     daggerVersion = '2.25.4'
     archComponent = '2.0.0'
-    glideVersion = '4.9.0'
+    glideVersion = '4.10.0'
 }
 
 
@@ -75,7 +75,7 @@ dependencies {
     // dagger2
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
-    kapt 'com.google.dagger:dagger-android-processor:2.24'
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     //Coroutines
@@ -124,8 +124,6 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-
 
 
 }
