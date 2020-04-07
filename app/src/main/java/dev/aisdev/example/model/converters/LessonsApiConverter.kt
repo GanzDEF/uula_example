@@ -1,7 +1,7 @@
 package dev.aisdev.example.model.converters
 
-import dev.aisdev.example.entities.LessonData
-import dev.aisdev.example.entities.LessonResponse
+import dev.aisdev.example.entities.lesson.LessonData
+import dev.aisdev.example.entities.lesson.LessonResponse
 
 class LessonsApiConverter : Converter<LessonResponse, LessonData>{
     override fun from(from: LessonResponse) =

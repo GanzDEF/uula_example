@@ -1,6 +1,6 @@
 package dev.aisdev.example.model.data.db.repositories
 
-import dev.aisdev.example.entities.LessonData
+import dev.aisdev.example.entities.lesson.LessonData
 import dev.aisdev.example.model.converters.LessonsApiConverter
 import dev.aisdev.example.model.data.db.LessonsDatabase
 import dev.aisdev.example.model.data.server.UulaApi

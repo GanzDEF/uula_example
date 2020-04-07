@@ -1,4 +1,4 @@
-package dev.aisdev.example.entities
+package dev.aisdev.example.entities.lesson
 
 data class Lesson (
     val id: String,
@@ -6,6 +6,7 @@ data class Lesson (
     val title: String,
     val about: String,
     val format: String?,
+    val description: String?,
     val duration: String?,
     val file_extension: LessonFileExtension?,
     val images: LessonImageUrlHolder?,

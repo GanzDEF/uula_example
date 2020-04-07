@@ -1,6 +1,6 @@
 package dev.aisdev.example.model.data.server
 
-import dev.aisdev.example.entities.LessonResponse
+import dev.aisdev.example.entities.lesson.LessonResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

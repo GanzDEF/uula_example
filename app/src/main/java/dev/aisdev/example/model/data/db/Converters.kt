@@ -3,7 +3,7 @@ package dev.aisdev.example.model.data.db
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dev.aisdev.example.entities.*
+import dev.aisdev.example.entities.lesson.*
 import java.util.*
 
 class Converters {
@@ -38,14 +38,15 @@ class Converters {
     fun LessonImageToString(value: LessonImageUrlHolder) = value.large
 
     @TypeConverter
-    fun stringToLessonsImage(value: String) = LessonImageUrlHolder(
-        large = value,
-        medium = value,
-        small = value,
-        xlarge = value,
-        xsmall = value,
-        xxlarge = value
-    )
+    fun stringToLessonsImage(value: String) =
+        LessonImageUrlHolder(
+            large = value,
+            medium = value,
+            small = value,
+            xlarge = value,
+            xsmall = value,
+            xxlarge = value
+        )
 
     @TypeConverter
     fun lessonsFileExtToString(value: LessonFileExtension) =

@@ -12,7 +12,7 @@ import toothpick.config.Module
 class AppModule(context: Context) : Module() {
 
     companion object {
-        private const val SharedPreferencesName = "mk3sharedprefs"
+        private const val SharedPreferencesName = "uulaSharedPrefs"
     }
 
     init {

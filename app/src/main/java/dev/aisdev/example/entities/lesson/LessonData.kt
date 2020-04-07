@@ -1,4 +1,4 @@
-package dev.aisdev.example.entities
+package dev.aisdev.example.entities.lesson
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -15,6 +15,8 @@ data class LessonData(
     val title: String,
     @SerializedName("about")
     val about: String,
+    @SerializedName("description")
+    val description: String?,
     @SerializedName("format")
     val format: String?,
     @SerializedName("duration")

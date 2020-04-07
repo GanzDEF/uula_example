@@ -1,4 +1,4 @@
-package dev.aisdev.example.entities
+package dev.aisdev.example.entities.lesson
 
 import com.google.gson.annotations.SerializedName
 
