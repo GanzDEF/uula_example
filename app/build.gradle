@@ -14,15 +14,22 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
 
+        debug {
+            buildConfigField('String', 'API_URL', '"https://http://kw.uula-staging.com/api/tests"')
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField('String', 'API_URL', '"https://http://kw.uula-staging.com/api/tests"')
+
         }
     }
 
@@ -32,18 +39,19 @@ android {
 //            temporaryNetworkToken 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTA4LCJleH'
 //        }
 //    }
+
     lintOptions {
         disable 'RestrictedApi'
     }
+    
     kapt {
         correctErrorTypes = true
     }
-    dataBinding {
-        enabled = true
-    }
+
     androidExtensions {
         experimental = true
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -66,6 +74,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'

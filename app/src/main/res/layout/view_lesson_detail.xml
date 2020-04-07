@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:id="@+id/viewLessonDetail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    app:chainUseRtl="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <variable
-            name="lessonData"
-            type="dev.aisdev.example.entities.LessonData" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-
-        android:id="@+id/viewLessonDetail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        app:chainUseRtl="true">
 
         <androidx.cardview.widget.CardView
             android:background="@android:color/transparent"
@@ -39,7 +31,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone">
-
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/btnPlay"
@@ -80,7 +71,6 @@
                         android:textAllCaps="true"
                         android:textColor="@android:color/white"
                         android:textSize="12sp"
-                        android:text="@{lessonData.duration.toString()}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -122,7 +112,6 @@
                     android:textSize="9sp"
                     app:textAllCaps="true"
                     tools:ignore="SmallSp"
-                    tools:text="@{lessonData.kind.innerContent}"
                     tools:textColor="@android:color/white" />
             </androidx.cardview.widget.CardView>
 
@@ -142,7 +131,6 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvLessonTitle"
-            android:text="@{lessonData.title}"
             style="@style/TextWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -156,7 +144,6 @@
             app:layout_constraintTop_toTopOf="@id/cvVideoPreview" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:src="@{lessonData.file_extension.title}"
             android:id="@+id/ivIconContent"
             android:layout_width="@dimen/margin_normal"
             android:layout_height="@dimen/margin_normal"
@@ -183,5 +170,4 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.4" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
