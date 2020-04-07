@@ -69,7 +69,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
                             View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                 }
 
-                statusBarColor = ContextCompat.getColor(context, R.color.black_20)
+//                statusBarColor = ContextCompat.getColor(context, R.color.black_20)
                 navigationBarColor = ContextCompat.getColor(context, R.color.black_20)
             }
         }
@@ -104,14 +104,10 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (permissionsForRequest != null && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 val granted = permissionsForRequest?.second?.first
-                if (granted != null) {
-                    granted()
-                }
+                if (granted != null) { granted() }
             } else {
                 val denied = permissionsForRequest?.second?.second
-                if (denied != null) {
-                    denied()
-                }
+                if (denied != null) { denied() }
             }
         }
     }

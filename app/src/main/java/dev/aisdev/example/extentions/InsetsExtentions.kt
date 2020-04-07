@@ -10,20 +10,15 @@ fun View.updatePadding(
     top: Int = paddingTop,
     right: Int = paddingRight,
     bottom: Int = paddingBottom
-) {
-    setPadding(left, top, right, bottom)
-}
+) = setPadding(left, top, right, bottom)
 
 fun View.addSystemTopPadding(
     targetView: View = this,
     isConsumed: Boolean = false
-) {
-    doOnApplyWindowInsets { _, insets, initialPadding ->
-        targetView.updatePadding(
-            top = initialPadding.top + insets.systemWindowInsetTop
-        )
-        if (isConsumed) {
-            insets.replaceSystemWindowInsets(
+) = doOnApplyWindowInsets { _, insets, initialPadding ->
+        targetView.updatePadding(top = initialPadding.top + insets.systemWindowInsetTop)
+        when {
+            isConsumed -> insets.replaceSystemWindowInsets(
                 Rect(
                     insets.systemWindowInsetLeft,
                     0,
@@ -31,17 +26,14 @@ fun View.addSystemTopPadding(
                     insets.systemWindowInsetBottom
                 )
             )
-        } else {
-            insets
+            else -> insets
         }
     }
-}
 
 fun View.addSystemBottomPadding(
     targetView: View = this,
     isConsumed: Boolean = false
-) {
-    doOnApplyWindowInsets { _, insets, initialPadding ->
+) = doOnApplyWindowInsets { _, insets, initialPadding ->
         targetView.updatePadding(bottom =  insets.systemWindowInsetBottom + initialPadding.bottom)
         when {
             isConsumed -> insets.replaceSystemWindowInsets(Rect(
@@ -53,7 +45,6 @@ fun View.addSystemBottomPadding(
             else -> insets
         }
     }
-}
 
 fun View.doOnApplyWindowInsets(block: (View, insets: WindowInsetsCompat, initialPadding: Rect) -> WindowInsetsCompat) {
     val initialPadding = recordInitialPaddingForView(this)
