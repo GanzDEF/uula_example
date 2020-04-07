@@ -3,6 +3,7 @@ package dev.aisdev.example.ui.base.adapters
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
+@Suppress("unused")
 abstract class UpdatableAdapter<Item, VH: RecyclerView.ViewHolder>(
     val items: MutableList<Item>,
     val diffFactory: DiffCallbackFactory<Item> = { source, target -> SimpleDiffCallback(source, target) }
@@ -29,10 +30,9 @@ abstract class UpdatableAdapter<Item, VH: RecyclerView.ViewHolder>(
     }
 
     open fun addItem(position: Int = items.size, item: Item) {
-        if (items.isEmpty() || position >= items.size) {
-            items.add(item)
-        } else {
-            items.add(position, item)
+        when {
+            items.isEmpty() || position >= items.size -> items.add(item)
+            else -> items.add(position, item)
         }
         notifyItemInserted(position)
     }

@@ -1,4 +1,4 @@
-package dev.aisdev.example.presentation.base
+package dev.aisdev.example.presentation
 
 class LessonsListPresenter {
 }

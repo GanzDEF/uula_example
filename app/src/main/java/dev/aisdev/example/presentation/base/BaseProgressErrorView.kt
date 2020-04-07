@@ -5,6 +5,7 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface BaseProgressErrorView : BaseView {
+
     fun showProgress()
     fun hideProgress()
     fun showError()

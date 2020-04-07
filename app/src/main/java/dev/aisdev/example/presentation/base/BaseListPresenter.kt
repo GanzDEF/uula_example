@@ -1,13 +1,12 @@
 package dev.aisdev.example.presentation.base
 
+@Suppress("unused")
 abstract class BaseListPresenter<I: Any, V: BaseListView<I>> : BasePresenter<V>() {
 
     var needClearBeforeApplyList: Boolean = false
     val list = mutableListOf<I>()
 
-    override fun onFirstViewAttach() {
-        refresh()
-    }
+    override fun onFirstViewAttach() = refresh()
 
     open fun refresh() {
         needClearBeforeApplyList = true
@@ -34,25 +33,24 @@ abstract class BaseListPresenter<I: Any, V: BaseListView<I>> : BasePresenter<V>(
         }
     }
 
-    private fun togglePagination(hasNextPage: Boolean) {
-        if (!hasNextPage) { viewState.disablePagination() }
-        else { viewState.enablePagination() }
+    private fun togglePagination(hasNextPage: Boolean) = when {
+            !hasNextPage -> viewState.disablePagination()
+            else -> viewState.enablePagination()
     }
 
-    private fun refreshPagination() {
-        viewState.refreshPagination()
-    }
+    private fun refreshPagination() = viewState.refreshPagination()
 
     private fun updateViewList() {
         toggleEmptyScreen(list.isEmpty())
         viewState.updateList(list)
     }
 
-    private fun toggleEmptyScreen(listIsEmpty: Boolean) {
-        if (listIsEmpty) {
+    private fun toggleEmptyScreen(listIsEmpty: Boolean) = when {
+        listIsEmpty -> {
             viewState.showEmptyList()
             viewState.hideContent()
-        } else {
+        }
+        else -> {
             viewState.hideEmptyList()
             viewState.showContent()
         }

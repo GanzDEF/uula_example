@@ -14,6 +14,4 @@ interface BaseView : MvpView {
 
     fun exit() { /*it is not required method*/ }
     fun copyTextToBuffer(text: String) {/*it is not required method*/}
-
-
 }

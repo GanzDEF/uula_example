@@ -19,8 +19,7 @@ import dev.aisdev.example.extentions.visible
 import dev.aisdev.example.presentation.base.BaseView
 import moxy.MvpAppCompatActivity
 
-
-@Suppress("unused")
+@Suppress("unused", "UNUSED_PARAMETER")
 @SuppressLint("Registered")
 abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
 

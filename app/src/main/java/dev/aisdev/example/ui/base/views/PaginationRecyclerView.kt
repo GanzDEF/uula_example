@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dev.aisdev.example.Contract
 import dev.aisdev.example.R
 
@@ -15,7 +14,7 @@ class PaginationRecyclerView : BaseRecyclerView {
     var endlessRecyclerOnScrollListener: EndlessRecyclerOnScrollListener? = null
     var listener: OnLoadMore? = null
     var withPagination = false
-    val scrollListeners: MutableList<RecyclerView.OnScrollListener> = mutableListOf()
+    val scrollListeners: MutableList<OnScrollListener> = mutableListOf()
 
     constructor(context: Context): super(context) {
         init(null)
@@ -52,10 +51,10 @@ class PaginationRecyclerView : BaseRecyclerView {
 
     private fun instanceAttrs(attrs: AttributeSet, defStyle: Int) {
         val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.PaginationRecyclerView, 0, defStyle)
-        if (typedArray.hasValue(R.styleable.PaginationRecyclerView_orientation)) {
-            orientation = typedArray.getInt(R.styleable.PaginationRecyclerView_orientation, Contract.PaginationRecyclerView.ORIENTATION.VERTICAL.value)
+        orientation = if (typedArray.hasValue(R.styleable.PaginationRecyclerView_orientation)) {
+            typedArray.getInt(R.styleable.PaginationRecyclerView_orientation, Contract.PaginationRecyclerView.ORIENTATION.VERTICAL.value)
         } else {
-            orientation = Contract.PaginationRecyclerView.ORIENTATION.VERTICAL.value
+            Contract.PaginationRecyclerView.ORIENTATION.VERTICAL.value
         }
     }
 
@@ -65,9 +64,9 @@ class PaginationRecyclerView : BaseRecyclerView {
                 removeOnScrollListener(endlessRecyclerOnScrollListener!!)
             }
             endlessRecyclerOnScrollListener = object : EndlessRecyclerOnScrollListener(layoutManager as LinearLayoutManager) {
-                override fun onLoadMore(currentPage: Int) {
+                override fun onLoadMore(current_page: Int) {
                     if (withPagination) {
-                        listener?.onLoadMore(currentPage)
+                        listener?.onLoadMore(current_page)
                     }
                 }
             }

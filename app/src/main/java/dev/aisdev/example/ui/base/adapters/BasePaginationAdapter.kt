@@ -16,16 +16,16 @@ abstract class BasePaginationAdapter<Item>(
 ) : BaseMultiTypeAdapter<Item>(list.toMutableList(), providers, typeSelector, diffFactory) {
 
     private var withPagination = true
+
     @LayoutRes
     open var progressLayoutRes = R.layout.progress_item
 
-    override fun onCreateViewHolder(parent: ViewGroup, layoutRes: Int): ViewHolder<Item> {
-        return if (layoutRes == progressLayoutRes) {
+    override fun onCreateViewHolder(parent: ViewGroup, layoutRes: Int) =
+        if (layoutRes == progressLayoutRes) {
             ProgressViewHolder(LayoutInflater.from(parent.context).inflate(layoutRes, parent, false))
         } else {
             super.onCreateViewHolder(parent, layoutRes)
         }
-    }
 
     override fun getItemViewType(position: Int) =
         if (super.getItemCount() in 1..position) {
@@ -37,7 +37,7 @@ abstract class BasePaginationAdapter<Item>(
 
     override fun getItemCount(): Int {
         var originalCount = super.getItemCount()
-        if (withPagination && super.getItemCount() > 0) {
+        if (withPagination && originalCount > 0) {
             originalCount++
         }
         return originalCount
@@ -50,20 +50,18 @@ abstract class BasePaginationAdapter<Item>(
     fun togglePagination(withPagination: Boolean) {
         if (this@BasePaginationAdapter.withPagination == !withPagination) {
             this@BasePaginationAdapter.withPagination = withPagination
-            if (this@BasePaginationAdapter.withPagination) {
-                notifyItemInserted(itemCount - 1)
-            } else {
-                notifyItemRemoved(itemCount - 1)
+            when {
+                this@BasePaginationAdapter.withPagination -> notifyItemInserted(itemCount - 1)
+                else -> notifyItemRemoved(itemCount - 1)
             }
         }
     }
 
     fun setPagination(withPagination: Boolean) {
         if (this@BasePaginationAdapter.withPagination != withPagination) {
-            if (withPagination) {
-                onPagination()
-            } else {
-                offPagination()
+            when {
+                withPagination -> onPagination()
+                else -> offPagination()
             }
         }
     }

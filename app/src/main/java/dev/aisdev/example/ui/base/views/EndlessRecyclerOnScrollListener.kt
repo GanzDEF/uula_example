@@ -3,7 +3,7 @@ package dev.aisdev.example.ui.base.views
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class EndlessRecyclerOnScrollListener(
     private val mLinearLayoutManager: LinearLayoutManager
 ) : RecyclerView.OnScrollListener() {
@@ -13,29 +13,26 @@ abstract class EndlessRecyclerOnScrollListener(
     var firstVisibleItem = 0
     var visibleItemCount = 0
     var totalItemCount = 0
-    private var current_page = 1
+    var currentPage = 1
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         visibleItemCount = recyclerView.childCount
         totalItemCount = mLinearLayoutManager.itemCount
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition()
-        if (loading) {
-            if (totalItemCount > previousTotal) {
+        when {
+            loading && (totalItemCount > previousTotal) -> {
                 loading = false
                 previousTotal = totalItemCount
             }
-        }
-        if (!loading &&
-            totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold
-        ) {
-            current_page++
-            onLoadMore(current_page)
-            loading = true
+            !loading && (totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold) -> {
+                currentPage++
+                onLoadMore(currentPage)
+                loading = true
+            }
         }
     }
 
-    abstract fun onLoadMore(current_page: Int)
     fun refresh() {
         previousTotal = 0
         loading = true
@@ -43,6 +40,8 @@ abstract class EndlessRecyclerOnScrollListener(
         firstVisibleItem = 0
         visibleItemCount = 0
         totalItemCount = 0
-        current_page = 0
+        currentPage = 0
     }
+
+    abstract fun onLoadMore(current_page: Int)
 }

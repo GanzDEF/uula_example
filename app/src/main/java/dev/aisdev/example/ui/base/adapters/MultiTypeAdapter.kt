@@ -1,3 +1,5 @@
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
+
 package dev.aisdev.example.ui.base.adapters
 
 import android.content.Context
@@ -21,23 +23,24 @@ open class BaseMultiTypeAdapter<Item>(
     diffFactory: DiffCallbackFactory<Item> = { source, target -> SimpleDiffCallback(source, target) }
 ) : UpdatableAdapter<Item, BaseMultiTypeAdapter.ViewHolder<Item>>(items, diffFactory) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, layoutRes: Int): ViewHolder<Item> {
-        val view = LayoutInflater.from(parent.context).inflate(layoutRes, parent, false)
-        return providers.getValue(layoutRes).provideViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, layoutRes: Int) = providers
+        .getValue(layoutRes)
+        .provideViewHolder(LayoutInflater
+            .from(parent.context)
+            .inflate(layoutRes, parent, false))
 
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int) = typeSelector(items[position])
 
     override fun onBindViewHolder(holder: ViewHolder<Item>, position: Int) {
-        val item = getSafelyItem(position)
-        if (item != null) {
-            holder.bindView(item)
-        }
+        getSafelyItem(position)?.run { holder.bindView(this) }
     }
 
-    fun getSafelyItem(position: Int) = if (items.size > position) { getItem(position) } else { null }
+    fun getSafelyItem(position: Int) = when {
+        items.size > position -> getItem(position)
+        else -> null
+    }
 
     abstract class ViewHolder<Item>(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

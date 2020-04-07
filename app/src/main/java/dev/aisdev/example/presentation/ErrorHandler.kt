@@ -16,23 +16,20 @@ class ErrorHandler @Inject constructor(
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    fun handle(error: Throwable, doLogOut: Boolean = true, messageListener: (String) -> Unit): Disposable? {
-        if (error is ServerError) {
-            when (error.error) {
-
-            }
-        } else {
-            if (BuildConfig.DEBUG) {
-                messageListener(error.message.toString())
-            } else {
-                messageListener(resourceManager.getString(R.string.common_errors_offline))
+    fun handle(
+        error: Throwable,
+        messageListener: (String) -> Unit
+    ): Disposable? {
+        when (error) {
+            is ServerError -> { /** there will be some logic*/ }
+            else -> when {
+                BuildConfig.DEBUG -> messageListener(error.message.toString())
+                else -> messageListener(resourceManager.getString(R.string.common_errors_offline))
             }
         }
         return null
     }
 
-    fun onDestroy() {
-        disposables.dispose()
-    }
+    fun onDestroy() = disposables.dispose()
 
 }

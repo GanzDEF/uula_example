@@ -1,4 +1,4 @@
-package dev.aisdev.example.ui.divider
+package dev.aisdev.example.ui.base.divider
 
 import android.content.Context
 import android.graphics.Canvas
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.aisdev.example.R
 import kotlin.math.roundToInt
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 open class DividerItemDecoration(
     context: Context,
     private val padding: Int = 0,
@@ -41,13 +42,16 @@ open class DividerItemDecoration(
         val left: Int
         val right: Int
 
-        if (parent.clipToPadding) {
-            left = parent.paddingLeft + padding
-            right = parent.width - parent.paddingRight - padding
-            canvas.clipRect(left, parent.paddingTop, right, parent.height - parent.paddingBottom)
-        } else {
-            left = padding
-            right = parent.width - padding
+        when {
+            parent.clipToPadding -> {
+                left = parent.paddingLeft + padding
+                right = parent.width - parent.paddingRight - padding
+                canvas.clipRect(left, parent.paddingTop, right, parent.height - parent.paddingBottom)
+            }
+            else -> {
+                left = padding
+                right = parent.width - padding
+            }
         }
         val childCount = parent.childCount
         for (i in 0 until childCount) {

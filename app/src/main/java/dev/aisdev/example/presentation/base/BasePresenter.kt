@@ -9,6 +9,7 @@ import io.reactivex.disposables.Disposable
 import moxy.MvpPresenter
 import toothpick.Toothpick
 
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class BasePresenter<V : BaseView> : MvpPresenter<V>() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -19,7 +20,7 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>() {
 
     override fun onDestroy() {
         compositeDisposable.dispose()
-        errorHandler?.onDestroy()
+        errorHandler.onDestroy()
         super.onDestroy()
     }
 
