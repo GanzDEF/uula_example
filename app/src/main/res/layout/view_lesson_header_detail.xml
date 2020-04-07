@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/llProgressHolder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="5"
+    android:background="@color/colorLessonsListProgressHolderBackground"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLessonProgressTitle"
+        style="@style/TextWhite"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:paddingStart="@dimen/margin_normal_plus"
+        android:paddingTop="@dimen/margin_normal"
+        android:paddingEnd="@dimen/margin_minimal"
+        android:paddingBottom="@dimen/margin_normal"
+        tools:text="Lessons progress" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLessonsProgressCount"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/margin_minimal"
+        android:paddingEnd="@dimen/margin_normal_plus"
+        android:textColor="@color/colorTextGrey"
+        tools:text="4/4"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
+</LinearLayout>
