@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Uula lessons</string>
     <string name="pdf">pdf</string>
     <string name="nil">nil</string>
     <string name="previous">previous</string>
     <string name="next">next</string>
+    <string name="common_errors_offline">Нет подключения к интернету</string>
+    <string name="empty_list">Список пустой</string>
 </resources>

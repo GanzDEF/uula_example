@@ -21,11 +21,3 @@ fun Context.toast(message: String): Toast = Toast
     .apply { show() }
 
 
-fun RecyclerView.bindResource(resource: Resource<Any>, onSuccess: () -> Unit) {
-    when (resource.status) {
-        Status.LOADING -> Unit
-        Status.ERROR -> context.toast(resource.message.toString())
-        Status.SUCCESS -> onSuccess
-    }
-}
-
