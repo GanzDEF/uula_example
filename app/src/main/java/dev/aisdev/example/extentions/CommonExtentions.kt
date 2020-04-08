@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Process
 import android.widget.Toast
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun Context.checkSelfPermissions(permissions: List<String>) =
     permissions.all {
@@ -22,3 +24,15 @@ fun Context.showToast(
 fun Context.copyToBuffer(text: String) =
     (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
         .setPrimaryClip(ClipData.newPlainText("Copied Text", text))
+
+fun Long.toDate(): Date = Date(this*1000L)
+
+fun Long.toFormattedTimeString(pattern: String = "dd MMMM yyyy"): String {
+    return try {
+        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+        val netDate = Date(this * 1000L)
+        sdf.format(netDate)
+    } catch(e: Throwable) {
+        ""
+    }
+}
