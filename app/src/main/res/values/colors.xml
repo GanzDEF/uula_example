@@ -11,4 +11,5 @@
     <color name="lessonsListBackgroundColor">#1E2833</color>
     <color name="colorLessonsListProgressHolderBackground">#191E24</color>
     <color name="black_20">#32000000</color>
+    <color name="colorTextBordo">#883630</color>
 </resources>

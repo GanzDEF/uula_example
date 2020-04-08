@@ -12,4 +12,8 @@
     <string name="lessons_progress">Lessons progress</string>
     <string name="lesson_activity_text">English Language - Grade 12 - Semester 1</string>
     <string name="activity_lessons_title">Migration</string>
+    <string name="survey">survey</string>
+    <string name="offline_material">offline material</string>
+
+
 </resources>
