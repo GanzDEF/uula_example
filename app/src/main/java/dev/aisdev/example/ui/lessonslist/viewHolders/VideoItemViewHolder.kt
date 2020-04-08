@@ -9,6 +9,7 @@ import dev.aisdev.example.BuildConfig
 import dev.aisdev.example.R
 import dev.aisdev.example.entities.lesson.LessonVideo
 import dev.aisdev.example.extentions.toFormattedTimeString
+import dev.aisdev.example.extentions.visible
 import dev.aisdev.example.ui.base.adapters.BaseMultiTypeAdapter
 import dev.aisdev.example.ui.lessonslist.LessonsAdapter
 import kotlinx.android.synthetic.main.view_lesson_video_detail.view.*
@@ -28,6 +29,7 @@ class VideoItemViewHolder(
             ivIconContent.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(context, R.color.colorTextGrey), PorterDuff.Mode.SRC_ATOP)
             tvCountContentItems.text = String.format("%s comments", it.comments_count.toString())
             tvLenghtTotal.text = (it.duration?.toInt()?.toLong()?.toFormattedTimeString("mm:ss"))
+            ivIsVisited.visible(it.visited)
         }
     }
 
