@@ -69,7 +69,7 @@ abstract class BaseActivity : MvpAppCompatActivity(), BaseView {
                             View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                 }
 
-//                statusBarColor = ContextCompat.getColor(context, R.color.black_20)
+                statusBarColor = ContextCompat.getColor(context, R.color.black_20)
                 navigationBarColor = ContextCompat.getColor(context, R.color.black_20)
             }
         }

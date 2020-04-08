@@ -24,7 +24,7 @@
         android:paddingTop="@dimen/margin_normal"
         android:paddingEnd="@dimen/margin_minimal"
         android:paddingBottom="@dimen/margin_normal"
-        tools:text="Lessons progress" />
+        tools:text="@string/lessons_progress" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvLessonsProgressCount"

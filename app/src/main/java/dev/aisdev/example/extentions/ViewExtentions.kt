@@ -18,8 +18,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 
-fun View.visible(bool: Boolean)  =
-    if (bool) View.VISIBLE else View.GONE
+fun View.visible(bool: Boolean)  {
+    this.visibility = if (bool) View.VISIBLE else View.INVISIBLE
+}
+
 
 fun View.invisible() {
     visibility = View.INVISIBLE

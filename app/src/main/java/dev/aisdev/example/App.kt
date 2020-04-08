@@ -5,6 +5,7 @@ import androidx.multidex.MultiDexApplication
 import dev.aisdev.example.di.Scopes
 import dev.aisdev.example.di.modules.AppModule
 import dev.aisdev.example.di.modules.ConvertersModule
+import dev.aisdev.example.di.modules.DatabaseModule
 import dev.aisdev.example.di.modules.ServerModule
 import toothpick.Toothpick
 import toothpick.configuration.Configuration
@@ -28,6 +29,8 @@ class App : MultiDexApplication() {
     private fun initAppScope() {
         val appScope = Toothpick.openScope(Scopes.APP_SCOPE)
         appScope.installModules(AppModule(this))
+        appScope.installModules(DatabaseModule())
+        appScope.installModules(ConvertersModule())
 
         val serverScope = Toothpick.openScopes(Scopes.APP_SCOPE, Scopes.SERVER_SCOPE)
         serverScope.installModules(ServerModule(BuildConfig.API_URL))

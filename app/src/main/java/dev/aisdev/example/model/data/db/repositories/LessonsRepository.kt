@@ -5,6 +5,7 @@ import dev.aisdev.example.model.converters.LessonsApiConverter
 import dev.aisdev.example.model.data.db.LessonsDatabase
 import dev.aisdev.example.model.data.server.UulaApi
 import dev.aisdev.example.model.data.system.SchedulersProvider
+import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -15,45 +16,81 @@ class LessonsRepository @Inject constructor(
     private val database: LessonsDatabase
 ){
 
-    fun getLessonsByPageId(pageId: Int): Single<List<LessonData>> {
-        return when {
-            getLessonsListFromDatabaseById(pageId).isNullOrEmpty() -> {
-                if (pageId == 0) {
-                    return getLessonsFromApi()
-                        .subscribeOn(schedulers.io())
-                        .observeOn(schedulers.ui())
-                        .map { list ->
-                            if (!list.isNullOrEmpty()) {
-                                val newList = mutableListOf<LessonData>()
-                                list.map { newList.add(converter.from(it).copy(page_id = pageId)) }
-                                Single.create<Unit> { insertLessonsDataToDataBase(newList) }
-                                    .subscribeOn(schedulers.io())
-                            }
-                            return@map getLessonsListFromDatabaseById(pageId)
-                        }
-                }
-                return getLessonsFromApiByPageId(pageId)
-                    .subscribeOn(schedulers.io())
-                    .observeOn(schedulers.ui())
-                    .map { list ->
-                        if (!list.isNullOrEmpty()) {
-                            val newList = mutableListOf<LessonData>()
-                            list.map { newList.add(converter.from(it).copy(page_id = pageId)) }
-                            Single.create<Unit> { insertLessonsDataToDataBase(newList) }
-                                .subscribeOn(schedulers.io())
-                        }
-                        return@map getLessonsListFromDatabaseById(pageId)
-                    }
-            }
-            else -> Single.create{ getLessonsListFromDatabaseById(pageId) }
-        }
+    fun getLessonsByPageId(pageId: Int) = when (pageId) {
+        0 -> getLessonsFromApi()
+        else -> getLessonsFromApiByPageId(pageId)
     }
 
+//        Single.create<List<LessonData>> {
+//        getLessonsFromApiByPageId(pageId)
+//            .subscribeOn(schedulers.io())
+//            .observeOn(schedulers.ui())
+//            .map { list ->
+//                var newList = mutableListOf<LessonData>()
+//                if (!list.isNullOrEmpty()) {
+//                    list.map { newList.add(converter.from(it).copy(page_id = pageId)) }
+//                    Observable.just(insertLessonsDataToDataBase(newList))
+//                        .subscribeOn(schedulers.io())
+//                        .observeOn(schedulers.ui())
+//                        .subscribe()
+//                    newList.toList()
+//                } else Observable.just(getLessonsListFromDatabaseById(pageId))
+//                    .subscribeOn(schedulers.io())
+//                    .observeOn(schedulers.ui())
+//                    .subscribe({
+//                        newList = it.toMutableList()
+////                        return@subscribe newList.toList()
+//                        newList.toList()
+//                    }, {})
+//            }
+//    }
+
+//        when (pageId){
+//         0 -> getLessonsFromApi()
+//             .subscribeOn(schedulers.io())
+//             .observeOn(schedulers.ui())
+//             .map { list ->
+//                 if (!list.isNullOrEmpty()) {
+//                     val newList = mutableListOf<LessonData>()
+//                     list.map { newList.add(converter.from(it).copy(page_id = pageId)) }
+//                     Observable.just(insertLessonsDataToDataBase(newList))
+//                         .subscribeOn(schedulers.io())
+//                         .observeOn(schedulers.ui())
+//                         .subscribe()
+//                      return  Single.create { newList }
+//                 } else  Observable.just(getLessonsListFromDatabaseById(pageId))
+//                     .subscribeOn(schedulers.io())
+//                     .observeOn(schedulers.ui())
+//                     .subscribe({
+//                          it
+//                     },{})
+//             }
+//        else -> getLessonsFromApiByPageId(pageId)
+//            .subscribeOn(schedulers.io())
+//            .observeOn(schedulers.ui())
+//            .map { list ->
+//                if (!list.isNullOrEmpty()) {
+//                    val newList = mutableListOf<LessonData>()
+//                    list.map { newList.add(converter.from(it).copy(page_id = pageId)) }
+//                    Observable.just(insertLessonsDataToDataBase(newList))
+//                        .subscribeOn(schedulers.io())
+//                        .observeOn(schedulers.ui())
+//                        .subscribe()
+//                    newList
+//                } else  Observable.just(getLessonsListFromDatabaseById(pageId))
+//                    .subscribeOn(schedulers.io())
+//                    .observeOn(schedulers.ui())
+//                    .subscribe({
+//                        it
+//                    },{})
+//            }
+//    }
+
     private fun insertLessonsDataToDataBase(list: List<LessonData>) =
-        database.lessonsDAO().insertLessons(list)
+         database.lessonsDAO().insertLessons(list)
 
     private fun getLessonsListFromDatabaseById(pageId: Int) =
-        database.lessonsDAO().getLessons(pageId)
+         database.lessonsDAO().getLessons(pageId)
 
     private fun getLessonsFromApi() =
         api.getLessonsList()

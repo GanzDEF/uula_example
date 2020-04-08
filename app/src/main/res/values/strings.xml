@@ -6,4 +6,10 @@
     <string name="next">next</string>
     <string name="common_errors_offline">Нет подключения к интернету</string>
     <string name="empty_list">Список пустой</string>
+    <string name="lesson_list_clicked_video">clicked video with id %s</string>
+    <string name="lessons_list_clicked_offline_material">clicked on offline material with id %s</string>
+    <string name="lessons_list_survey_clicked">clicked on survey with id %s</string>
+    <string name="lessons_progress">Lessons progress</string>
+    <string name="lesson_activity_text">English Language - Grade 12 - Semester 1</string>
+    <string name="activity_lessons_title">Migration</string>
 </resources>

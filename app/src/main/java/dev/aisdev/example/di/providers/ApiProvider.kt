@@ -18,13 +18,11 @@ class ApiProvider @Inject constructor(
     @ServerPath private val serverPath: String
 ) : Provider<UulaApi> {
 
-    override fun get(): UulaApi {
-        return Retrofit.Builder()
-            .baseUrl(serverPath)
-            .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(schedulersProvider.io()))
-            .build()
-            .create(UulaApi::class.java)
-    }
+    override fun get(): UulaApi = Retrofit.Builder()
+        .baseUrl(serverPath)
+        .client(httpClient)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(schedulersProvider.io()))
+        .build()
+        .create(UulaApi::class.java)
 }

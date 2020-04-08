@@ -12,7 +12,7 @@ class LessonsAdapter(listener: LessonsListener) : BasePaginationAdapter<Any>(
         VIDEO_ITEM_LAYOUT to viewHolderProvider { VideoItemViewHolder(it, listener) },
         OFFLINE_MATERIAL_ITEM_LAYOUT to viewHolderProvider { OfflineMaterialItemViewHolder(it, listener) },
         SURVEY_ITEM_LAYOUT to viewHolderProvider { SurveyItemViewHolder(it, listener) },
-        HEADER_ITEM_LAYOUT to viewHolderProvider { HeaderItemViewHolder(it, listener) },
+        HEADER_ITEM_LAYOUT to viewHolderProvider { HeaderItemViewHolder(it) },
         FOOTER_ITEM_LAYOUT to viewHolderProvider { FooterItemViewHolder(it, listener) }
     ),
     typeSelector = {
@@ -39,8 +39,8 @@ class LessonsAdapter(listener: LessonsListener) : BasePaginationAdapter<Any>(
         fun onVideoClicked(itemId: String)
         fun onOfflineMaterialClicked(itemId: String)
         fun onSurveyClicked(itemId: String)
-        fun onPrevClicked(itemId: String)
-        fun onNextClicked(itemId: String)
+        fun onPrevClicked()
+        fun onNextClicked()
     }
 
 }

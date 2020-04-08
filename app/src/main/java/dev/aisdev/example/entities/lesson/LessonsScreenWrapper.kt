@@ -1,14 +1,14 @@
 package dev.aisdev.example.entities.lesson
 
 data class LessonsScreenWrapper(
-    val pageId: Int?,
+    val stageId: Int?,
     val stageTitle: String,
     val stageMessage: String,
     val stageList: List<LessonsListItem>
 )
 
 data class LessonHeader(
-    val title: String
+    var title: String
 ) : LessonsListItem
 
 data class LessonVideo(
@@ -40,7 +40,8 @@ data class LessonOfflineMaterial(
 ) : LessonsListItem
 
 data class LessonFooter(
-    val title: String
+    var prev: Boolean,
+    var next: Boolean
 )
 
 interface LessonsListItem

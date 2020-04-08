@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/lessonsListBackgroundColor"
     android:layout_height="match_parent"
     tools:context=".ui.lessonslist.LessonsListActivity">
 
@@ -30,12 +31,12 @@
         app:layout_constraintBottom_toBottomOf="@id/ivListPikcha"
         app:layout_constraintEnd_toEndOf="@id/ivListPikcha"
         app:layout_constraintStart_toStartOf="@id/ivListPikcha"
-        tools:text="English Language - Grade 12 - Semester 1" />
+        tools:text="@string/lesson_activity_text" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvLessonsListTitle"
         style="@style/TitleWhite"
-        tools:text="Migration"
+        tools:text="@string/activity_lessons_title"
         app:layout_constraintBottom_toTopOf="@id/tvLessonsListDescription"
         app:layout_constraintStart_toStartOf="@id/tvLessonsListDescription"
         app:layout_constraintEnd_toEndOf="@id/tvLessonsListDescription"
@@ -45,11 +46,13 @@
 
     <fragment
         android:id="@+id/ftLessons"
+        class="dev.aisdev.example.ui.lessonslist.LessonsListFragment"
         app:layout_constraintTop_toBottomOf="@id/ivListPikcha"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        tools:layout="@layout/layout_base_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
