@@ -8,51 +8,25 @@ import java.util.*
 
 class Converters {
 
-    private val gson = Gson()
 
     @TypeConverter
-    fun listToJson(value: List<String>?): String {
-        return gson.toJson(value)
-    }
+    fun lessonKindToString(value: LessonKind?): String = Gson().toJson(value)
 
     @TypeConverter
-    fun jsonToList(value: String): List<String>? {
-        val listType = object : TypeToken<List<String>>() {}.type
-        return Gson().fromJson(value, listType)
-    }
-    @TypeConverter
-    fun lessonResponseToLessonsData(value: LessonResponse): LessonData {
-        val converted = value.lessonData
-        converted.copy(kind = value.kind)
-        return converted
-    }
-    @TypeConverter
-    fun lessonKindToString(value: LessonKind): String =
-        value.name.toLowerCase(Locale.getDefault()).capitalize()
+    fun stringToLessonKind(value: String?): LessonKind? =
+        Gson().fromJson(value, LessonKind::class.java)
 
     @TypeConverter
-    fun stringToLessonKind(value: String) =
-        Gson().fromJson<LessonKind>(value, LessonKind::class.java)
+    fun lessonImageToString(value: LessonImageUrlHolder?): String? = Gson().toJson(value)
 
     @TypeConverter
-    fun LessonImageToString(value: LessonImageUrlHolder) = value.large
+    fun stringToLessonsImage(value: String?): LessonImageUrlHolder? =
+        Gson().fromJson(value, LessonImageUrlHolder::class.java)
 
     @TypeConverter
-    fun stringToLessonsImage(value: String) =
-        LessonImageUrlHolder(
-            large = value,
-            medium = value,
-            small = value,
-            xlarge = value,
-            xsmall = value,
-            xxlarge = value
-        )
+    fun lessonsFileExtToString(value: LessonFileExtension?): String? = Gson().toJson(value)
 
     @TypeConverter
-    fun lessonsFileExtToString(value: LessonFileExtension) =
-        value.name
-
-    @TypeConverter
-    fun stringToLessonsFileExtensions(value: String) =
+    fun stringToLessonsFileExtensions(value: String?): LessonFileExtension? =
         Gson().fromJson(value, LessonFileExtension::class.java)
 }

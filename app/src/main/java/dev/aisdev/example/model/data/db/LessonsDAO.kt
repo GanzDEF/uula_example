@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import dev.aisdev.example.entities.lesson.LessonData
+import io.reactivex.Single
 
 @Dao
 interface LessonsDAO {
@@ -13,7 +14,7 @@ interface LessonsDAO {
     fun insertLessons(vararg: List<LessonData>)
 
     @Query("SELECT * FROM lessons WHERE page_id = :pageId")
-    fun getLessons(pageId: Int): List<LessonData>
+    fun getLessons(pageId: Int): Single<List<LessonData>>
 
     @Query("DELETE FROM lessons")
     fun deleteAllLessons()

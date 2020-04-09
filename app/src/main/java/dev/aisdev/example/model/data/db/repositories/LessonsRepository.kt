@@ -5,8 +5,9 @@ import dev.aisdev.example.model.converters.LessonsApiConverter
 import dev.aisdev.example.model.data.db.LessonsDatabase
 import dev.aisdev.example.model.data.server.UulaApi
 import dev.aisdev.example.model.data.system.SchedulersProvider
+import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.Single
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class LessonsRepository @Inject constructor(
@@ -16,93 +17,64 @@ class LessonsRepository @Inject constructor(
     private val database: LessonsDatabase
 ){
 
-    fun getLessonsByPageId(pageId: Int) = when (pageId) {
-        0 -> getLessonsFromApi()
-        else -> getLessonsFromApiByPageId(pageId)
+    fun getLessonsByPageId(pageId: Int): Observable<List<LessonData>> = when (pageId) {
+        0 -> getLessons()
+        else -> getLessonsById(pageId)
     }
 
-//        Single.create<List<LessonData>> {
-//        getLessonsFromApiByPageId(pageId)
-//            .subscribeOn(schedulers.io())
-//            .observeOn(schedulers.ui())
-//            .map { list ->
-//                var newList = mutableListOf<LessonData>()
-//                if (!list.isNullOrEmpty()) {
-//                    list.map { newList.add(converter.from(it).copy(page_id = pageId)) }
-//                    Observable.just(insertLessonsDataToDataBase(newList))
-//                        .subscribeOn(schedulers.io())
-//                        .observeOn(schedulers.ui())
-//                        .subscribe()
-//                    newList.toList()
-//                } else Observable.just(getLessonsListFromDatabaseById(pageId))
-//                    .subscribeOn(schedulers.io())
-//                    .observeOn(schedulers.ui())
-//                    .subscribe({
-//                        newList = it.toMutableList()
-////                        return@subscribe newList.toList()
-//                        newList.toList()
-//                    }, {})
-//            }
-//    }
+    private fun getLessons(): Observable<List<LessonData>> =
+        Observable.concatArrayEager(
+        getLessonsListFromDatabaseById(0),
+        getLessonsFromApi()
+            .materialize()
+            .observeOn(schedulers.ui())
+            .map { it }
+            .filter{ !it.isOnError }
+            .dematerialize<List<LessonData>>()
+            .debounce(400, TimeUnit.MILLISECONDS))
 
-//        when (pageId){
-//         0 -> getLessonsFromApi()
-//             .subscribeOn(schedulers.io())
-//             .observeOn(schedulers.ui())
-//             .map { list ->
-//                 if (!list.isNullOrEmpty()) {
-//                     val newList = mutableListOf<LessonData>()
-//                     list.map { newList.add(converter.from(it).copy(page_id = pageId)) }
-//                     Observable.just(insertLessonsDataToDataBase(newList))
-//                         .subscribeOn(schedulers.io())
-//                         .observeOn(schedulers.ui())
-//                         .subscribe()
-//                      return  Single.create { newList }
-//                 } else  Observable.just(getLessonsListFromDatabaseById(pageId))
-//                     .subscribeOn(schedulers.io())
-//                     .observeOn(schedulers.ui())
-//                     .subscribe({
-//                          it
-//                     },{})
-//             }
-//        else -> getLessonsFromApiByPageId(pageId)
-//            .subscribeOn(schedulers.io())
-//            .observeOn(schedulers.ui())
-//            .map { list ->
-//                if (!list.isNullOrEmpty()) {
-//                    val newList = mutableListOf<LessonData>()
-//                    list.map { newList.add(converter.from(it).copy(page_id = pageId)) }
-//                    Observable.just(insertLessonsDataToDataBase(newList))
-//                        .subscribeOn(schedulers.io())
-//                        .observeOn(schedulers.ui())
-//                        .subscribe()
-//                    newList
-//                } else  Observable.just(getLessonsListFromDatabaseById(pageId))
-//                    .subscribeOn(schedulers.io())
-//                    .observeOn(schedulers.ui())
-//                    .subscribe({
-//                        it
-//                    },{})
-//            }
-//    }
+    private fun getLessonsById(pageId: Int): Observable<List<LessonData>> =
+        Observable.concatArrayEager(
+            getLessonsListFromDatabaseById(0),
+            getLessonsFromApiByPageId(pageId)
+                .materialize()
+                .observeOn(schedulers.ui())
+                .map { it }
+                .filter{ !it.isOnError }
+                .dematerialize<List<LessonData>>()
+                .debounce(400, TimeUnit.MILLISECONDS))
 
-    private fun insertLessonsDataToDataBase(list: List<LessonData>) =
-         database.lessonsDAO().insertLessons(list)
+    private fun getLessonsListFromDatabaseById(pageId: Int): Observable<List<LessonData>> =
+        database.lessonsDAO().getLessons(pageId)
+            .subscribeOn(schedulers.io())
+            .observeOn(schedulers.ui())
+            .filter { it.isNotEmpty() }
+            .toObservable()
 
-    private fun getLessonsListFromDatabaseById(pageId: Int) =
-         database.lessonsDAO().getLessons(pageId)
-
-    private fun getLessonsFromApi() =
+    private fun getLessonsFromApi(): Observable<List<LessonData>> =
         api.getLessonsList()
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
-            .map { it }
+            .map {
+                storeUserInDb(it.map { lessons -> converter.from(lessons) })
+                it.map { lesson -> converter.from(lesson) }
+            }
 
-    private fun getLessonsFromApiByPageId(id: Int) =
+    private fun storeUserInDb(list: List<LessonData>) {
+        Observable.fromCallable { database.lessonsDAO().insertLessons(list) }
+            .subscribeOn(schedulers.io())
+            .observeOn(schedulers.io())
+            .subscribe()
+    }
+
+    private fun getLessonsFromApiByPageId(id: Int): Observable<List<LessonData>> =
         api.getLessonsListByPageId(id)
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
-            .map { it }
+            .map {
+                storeUserInDb(it.map { lessons -> converter.from(lessons) })
+                it.map { lesson -> converter.from(lesson) }
+            }
 }
 
 

@@ -23,7 +23,7 @@ class LessonsListFragmentPresenter @Inject constructor(
     private val rm: ResourceManager
 ) : BaseListPresenter<Any, LessonsListFragmentView>(){
 
-    private val pages = mutableListOf<Int>().apply { for(i in 0..10){ add(i) } } as List<Int>
+    private val pages = mutableListOf<Int>().apply { for(i in 1..10){ add(i) } } as List<Int>
     private var currentPage = pages.first()
     private var footerItem = LessonFooter(prev = false, next =  false)
 
@@ -49,7 +49,7 @@ class LessonsListFragmentPresenter @Inject constructor(
     private fun convertList(list: List<LessonData>) {
         viewState.refreshScreen()
         checkOtherListsAvailability()
-        val completed = String.format("%d/%d", list.count { it.visited }, list.count())
+        val completed = String.format("%d/%d", list.count { it.visited == true }, list.count())
         val newList = mutableListOf<Any>()
         newList.add(0, LessonHeader(title = completed))
         list.map {
@@ -58,6 +58,7 @@ class LessonsListFragmentPresenter @Inject constructor(
                     LessonKind.VIDEO -> videoConverter.from(it)
                     LessonKind.OFFLINE_MATERIAL -> offlineMaterialConverter.from(it)
                     LessonKind.SURVEY -> surveyConverter.from(it)
+                    else -> return
                 }
             )
         }

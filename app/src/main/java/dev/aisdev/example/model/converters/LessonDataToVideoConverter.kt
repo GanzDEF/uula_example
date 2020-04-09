@@ -7,9 +7,9 @@ class LessonDataToVideoConverter : Converter<LessonData, LessonVideo> {
 
     override fun from(from: LessonData) = LessonVideo(
         id = from.id,
-        visited = from.visited,
-        title = from.title,
-        about = from.about,
+        visited = from.visited  ?: false,
+        title = from.title ?: "",
+        about = from.about ?: "",
         images = from.images,
         duration = from.duration,
         comments_count = from.comments_count,
