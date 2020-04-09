@@ -5,7 +5,6 @@ import dev.aisdev.example.model.converters.LessonsApiConverter
 import dev.aisdev.example.model.data.db.LessonsDatabase
 import dev.aisdev.example.model.data.server.UulaApi
 import dev.aisdev.example.model.data.system.SchedulersProvider
-import io.reactivex.Flowable
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

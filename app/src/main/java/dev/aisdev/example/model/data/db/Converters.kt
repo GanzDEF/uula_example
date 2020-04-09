@@ -2,9 +2,9 @@ package dev.aisdev.example.model.data.db
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import dev.aisdev.example.entities.lesson.*
-import java.util.*
+import dev.aisdev.example.entities.lesson.LessonFileExtension
+import dev.aisdev.example.entities.lesson.LessonImageUrlHolder
+import dev.aisdev.example.entities.lesson.LessonKind
 
 class Converters {
 
