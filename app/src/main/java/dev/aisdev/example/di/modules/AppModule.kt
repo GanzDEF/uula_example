@@ -3,6 +3,7 @@ package dev.aisdev.example.di.modules
 import android.content.Context
 import android.content.SharedPreferences
 import dev.aisdev.example.App
+import dev.aisdev.example.Utils
 import dev.aisdev.example.di.SharedPrefsName
 import dev.aisdev.example.di.providers.SharedPrefsProvider
 import dev.aisdev.example.model.data.system.AppSchedulers
@@ -21,6 +22,7 @@ class AppModule(context: Context) : Module() {
         bind(App::class.java).toInstance(context as App)
         bind(SchedulersProvider::class.java).toInstance(AppSchedulers())
         bind(ResourceManager::class.java).singleton()
+        bind(Utils::class.java).singleton()
 
         // Shared preferences name
         bind(String::class.java).withName(SharedPrefsName::class.java).toInstance(SharedPreferencesName)
